@@ -33,7 +33,11 @@
     "test:features": "node --loader ts-node/esm ./node_modules/.bin/wdio run wdio.BUILD.conf.ts",
     "wdio": "node --loader ts-node/esm ./node_modules/.bin/wdio run wdio.BUILD.conf.ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "nodemailer": "^6.8.0",
+    "sequelize": "^6.24.0",
+    "sqlite3": "^5.1.2"
+  },
   "devDependencies": {
     "@types/jest": "^27.5.0",
     "@typescript-eslint/eslint-plugin": "^5.22.0",

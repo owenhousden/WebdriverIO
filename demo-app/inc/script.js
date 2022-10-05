@@ -1,11 +1,11 @@
 function onClickToggleElement() {
-    var $el = $(this),
-        $showTarget = $($el.data('show')),
-        $hideTarget = $($el.data('hide')),
-        timeout = $el.data('timeout') || 0;
+    const $el = $(this);
+    const $showTarget = $($el.data('show'));
+    const $hideTarget = $($el.data('hide'));
+    const timeout = $el.data('timeout') || 0;
 
     setTimeout(
-        function toggleHiddenClass() {
+        () => {
             $showTarget.removeClass('hidden');
             $hideTarget.addClass('hidden');
         },
@@ -14,44 +14,51 @@ function onClickToggleElement() {
 }
 
 function displayFirstMessage() {
-    $('#message1').removeClass('hidden');
-    $('#message2').addClass('hidden');
+    $('#message1')
+        .removeClass('hidden');
+    $('#message2')
+        .addClass('hidden');
 }
 
 function displaySecondMessage() {
-    $('#message1').addClass('hidden');
-    $('#message2').removeClass('hidden');
+    $('#message1')
+        .addClass('hidden');
+    $('#message2')
+        .removeClass('hidden');
 }
 
 function makeBgRed() {
-    $(this).css('background-color', 'red');
+    $(this)
+        .css('background-color', 'red');
 }
 
-function makeBgBlue() {
-    $(this).css('background-color', 'blue');
-}
+const makeBgBlue = function () {
+    $(this)
+        .css('background-color', 'blue');
+};
 
+// eslint-disable-next-line require-jsdoc
 function detectDrop($el) {
-    var $dropZone = $($el.data('dropzone')),
-        dragOffset = $el.offset(),
-        dropOffset = $dropZone.offset(),
-        dragTop = dragOffset.top,
-        dragRight = (dragOffset.left + $el.outerWidth()),
-        dragBottom = (dragOffset.top + $el.outerHeight()),
-        dragLeft = dragOffset.left,
-        dropTop = dropOffset.top,
-        dropRight = (dropOffset.left + $dropZone.outerWidth()),
-        dropBottom = (dropOffset.top + $dropZone.outerHeight()),
-        dropLeft = dropOffset.left;
+    const $dropZone = $($el.data('dropzone'));
+    const dragOffset = $el.offset();
+    const dropOffset = $dropZone.offset();
+    const dragTop = dragOffset.top;
+    const dragRight = (dragOffset.left + $el.outerWidth());
+    const dragBottom = (dragOffset.top + $el.outerHeight());
+    const dragLeft = dragOffset.left;
+    const dropTop = dropOffset.top;
+    const dropRight = (dropOffset.left + $dropZone.outerWidth());
+    const dropBottom = (dropOffset.top + $dropZone.outerHeight());
+    const dropLeft = dropOffset.left;
 
     if (
         (
-            (dragBottom > dropTop) &&
-            (dragTop < dropBottom)
-        ) &&
-        (
-            (dragRight > dropLeft) &&
-            (dragLeft < dropRight)
+            (dragBottom > dropTop)
+            && (dragTop < dropBottom)
+        )
+        && (
+            (dragRight > dropLeft)
+            && (dragLeft < dropRight)
         )
     ) {
         $dropZone.text('Dropped!');
@@ -63,25 +70,33 @@ function detectDrop($el) {
 function handleFormSubmit(event) {
     event.preventDefault();
 
-    $(this).find('.message').removeClass('hidden');
+    $(this)
+        .find('.message')
+        .removeClass('hidden');
 }
 
 function handleDataAction(event) {
-    var $target = $($(this).data('target')),
-        data = $(this).data('action'),
-        action = Object.keys(data)[0],
-        val = data[action],
-        state = $(this).data('state') ? !$(this).data('state') : true;
+    const $target = $($(this)
+        .data('target'));
+    const data = $(this)
+        .data('action');
+    const action = Object.keys(data)[0];
+    const val = data[action];
+    const state = $(this)
+        .data('state') ? !$(this)
+            .data('state') : true;
 
     event.preventDefault();
 
-    setTimeout(function delayedHandle() {
+    setTimeout(() => {
         switch (action) {
             case 'select': {
                 if (state === true) {
-                    $target.val(val).change();
+                    $target.val(val)
+                        .change();
                 } else {
-                    $target.val('1').change();
+                    $target.val('1')
+                        .change();
                 }
 
                 break;
@@ -112,7 +127,8 @@ function handleDataAction(event) {
 
             case 'create': {
                 if (state) {
-                    $(val).appendTo($target);
+                    $(val)
+                        .appendTo($target);
                 } else {
                     $target.empty();
                 }
@@ -132,7 +148,8 @@ function handleDataAction(event) {
         }
     }, 500);
 
-    $(this).data('state', state);
+    $(this)
+        .data('state', state);
 }
 
 function handleMousedown(event) {
@@ -140,17 +157,18 @@ function handleMousedown(event) {
         pageX0: event.pageX,
         pageY0: event.pageY,
         elem: this,
-        offset0: $(this).offset()
+        offset0: $(this)
+            .offset(),
     };
 
     function handleDragging(event) {
-        var left = dragging.offset0.left + (event.pageX - dragging.pageX0),
-            top = dragging.offset0.top + (event.pageY - dragging.pageY0);
+        const left = dragging.offset0.left + (event.pageX - dragging.pageX0);
+        const top = dragging.offset0.top + (event.pageY - dragging.pageY0);
 
         $(dragging.elem)
             .offset({
-                top: top,
-                left: left
+                top,
+                left,
             });
 
         detectDrop($(dragging.elem));
@@ -168,7 +186,7 @@ function handleMousedown(event) {
 }
 
 function handleKeydown(event) {
-    var $target = $('#testKeyResponse');
+    const $target = $('#testKeyResponse');
 
     $target.text(event.keyCode);
 }
@@ -180,8 +198,8 @@ function openAlert(event) {
 }
 
 function openConfirm(event) {
-    var $result = $('#confirmResult'),
-        result;
+    const $result = $('#confirmResult');
+    let result;
 
     event.preventDefault();
 
@@ -191,8 +209,8 @@ function openConfirm(event) {
 }
 
 function openPrompt(event) {
-    var $result = $('#promptResult'),
-        result;
+    const $result = $('#promptResult');
+    let result;
 
     event.preventDefault();
 
@@ -202,10 +220,11 @@ function openPrompt(event) {
 }
 
 function toggleMoveToElement(event) {
-    $(this).toggleClass('moveToClass');
+    $(this)
+        .toggleClass('moveToClass');
 }
 
-$(function () {
+$(() => {
     $('.jsToggleElement')
         .on('click', onClickToggleElement);
 
